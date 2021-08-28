@@ -1,0 +1,820 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "RentalX Documentation",
+    "description": "This is a sample server Rent Car server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). For this sample, you can use the api key `special-key` to test the authorization filters.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "jezmael@baitasolucoes.com.br"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "paths": {
+    "/categories": {
+      "post": {
+        "tags": ["categories"],
+        "summary": "Add a new Category to the Car",
+        "description": "Create a new Category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["categories"],
+        "summary": "List all Categories",
+        "description": "List all categories by cars",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/import": {
+      "post": {
+        "tags": ["categories"],
+        "summary": "Importing categories by file upload",
+        "description": "Create categories with file upload CSV",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/specifications": {
+      "post": {
+        "tags": ["specifications"],
+        "summary": "Add a new Specification to the Car",
+        "description": "Create a new Specification",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Specification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Internal Server Error"
+                }
+              }
+            },
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["specifications"],
+        "summary": "List all Specifications",
+        "description": "List all specifications by cars",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Specification"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Add a new User",
+        "description": "Create a new User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/users/avatar": {
+      "patch": {
+        "tags": ["users"],
+        "summary": "Upload avatar user",
+        "description": "Uploading a user avatar",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sessions": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Create a user session",
+        "description": "Create a user session by email and password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "your@email.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "yourpassword"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/sessions/refresh-token": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Refresh a user session token",
+        "description": "Refresh a user token",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "token": {
+                    "type": "uuid",
+                    "example": "your@email.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Refresh Token does not exists!"
+          }
+        }
+      }
+    },
+    "/password/forgot": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Request a new Password",
+        "description": "When a user forgot a password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "your@email.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "User does not exists!"
+          }
+        }
+      }
+    },
+    "/password/reset/{token}": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Reset a Password",
+        "description": "Reset a password with token",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "example": "qwe123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "description": "Token",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/cars": {
+      "post": {
+        "tags": ["cars"],
+        "summary": "Add a new Car",
+        "description": "Create a new Car",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "get": {
+        "tags": ["cars"],
+        "summary": "List all Cars",
+        "description": "List all cars",
+        "responses": {
+          "200": {
+            "description": "List cars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Car"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/availables": {
+      "get": {
+        "tags": ["cars"],
+        "summary": "List all available Cars",
+        "description": "List all available cars",
+        "responses": {
+          "200": {
+            "description": "List available cars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Car"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Cars name",
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category_id",
+            "in": "query",
+            "description": "Category car",
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "brand",
+            "in": "query",
+            "description": "Brands car",
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string",
+              "description": "GM"
+            }
+          }
+        ]
+      }
+    },
+    "/cars/specifications/{id}": {
+      "patch": {
+        "tags": ["cars"],
+        "summary": "Set specifications on car",
+        "description": "Set specifications list on cars",
+        "requestBody": {
+          "description": "specifications id",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "examples": {
+                "specification_ids": {
+                  "value": {
+                    "specification_ids": ["id", "id2"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Specifications updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/Car"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Car ID",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/cars/images/{id}": {
+      "patch": {
+        "tags": ["cars"],
+        "summary": "Upload car images",
+        "description": "Upload a list of car images",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Car ID",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/rentals": {
+      "post": {
+        "tags": ["rentals"],
+        "summary": "Add a new Rental",
+        "description": "Create a new Rental",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Rental"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rental"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/rentals/devolution/{id}": {
+      "post": {
+        "tags": ["rentals"],
+        "summary": "Devolution from a Rental",
+        "description": "Devolution car",
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rental"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Rental does not exists"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Car ID",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/rentals/me": {
+      "get": {
+        "tags": ["rentals"],
+        "summary": "List all rentals by a user",
+        "description": "List rentals by user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Rental"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "example": "Category name sample"
+          },
+          "description": {
+            "type": "string",
+            "example": "Description sample"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["name", "description"]
+      },
+      "Specification": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "example": "Specification name sample"
+          },
+          "description": {
+            "type": "string",
+            "example": "Description sample"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["name", "description"]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "example": "User name sample"
+          },
+          "email": {
+            "type": "string",
+            "example": "teste@teste.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "qwe123"
+          },
+          "avatar": {
+            "type": "string",
+            "example": "http://avatar.com/avatar.png"
+          },
+          "driver_license": {
+            "type": "string",
+            "example": "Driver license example"
+          },
+          "isAdmin": {
+            "type": "boolean",
+            "example": "false"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["name", "email", "password", "driver_license"]
+      },
+      "Car": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "example": "Car name"
+          },
+          "description": {
+            "type": "string",
+            "example": "Car description"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Brand"
+          },
+          "category_id": {
+            "type": "string",
+            "example": "eefe84e5-3041-4823-a30d-e0245f3d625d"
+          },
+          "daily_rate": {
+            "type": "number",
+            "example": 10
+          },
+          "available": {
+            "type": "boolean",
+            "default": true
+          },
+          "license_plate": {
+            "type": "string",
+            "example": "ABC1234"
+          },
+          "fine_amount": {
+            "type": "number",
+            "example": 20
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "brand",
+          "category_id",
+          "daily_rate",
+          "license_plate",
+          "fine_amount"
+        ]
+      },
+      "Rental": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "car_id": {
+            "type": "string",
+            "example": "eefe84e5-3041-4823-a30d-e0245f3d625d"
+          },
+          "user_id": {
+            "type": "string",
+            "example": "eefe84e5-3041-4823-a30d-e0245f3d625d"
+          },
+          "return_date": {
+            "type": "string",
+            "example": "2019-05-14T10:00:00+03:00",
+            "format": "date-time"
+          },
+          "start_date": {
+            "type": "string",
+            "example": "2019-05-14T10:00:00+03:00",
+            "format": "date-time"
+          },
+          "total": {
+            "type": "number",
+            "example": 10
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["car_id", "user_id", "return_date"]
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "description": "Enter JWT Bearer",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}

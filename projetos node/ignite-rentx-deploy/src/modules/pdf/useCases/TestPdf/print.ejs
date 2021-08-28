@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório</title>
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+<body style='padding:0px; margin:0px;'>
+    <div style='
+      background-color: white; 
+      width:100%; 
+      height: 595px; 
+      display:flex; 
+      align-items: center; 
+      justify-content: center; 
+      padding: 20px 50px; 
+      margin:0px;
+      position: relative;
+      background-position: center center;
+      background-image: url(https://img.freepik.com/fotos-gratis/texturas-de-parede-cinza-para-plano-de-fundo_74190-2715.jpg?size=626&ext=jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      '
+    >           
+      <image src='https://img.freepik.com/fotos-gratis/texturas-de-parede-cinza-para-plano-de-fundo_74190-2715.jpg?size=626&ext=jpg' style='
+        height:100px;
+        margin-left:600px;
+      ' />
+      <p style='text-align: center; color:red; font-size: 42px; letter-spacing: 4px; margin-bottom:30px'>CERTIFICADO</p>
+      <p style='text-align: center; color:black;'>
+        A Realiza Desenvolvimento de Pessoas e Processos, inscrita sob o CNPJ nº 06.958.033/0001-25, certica
+        que <span style='text-decoration: underline;'><%= body.name %></span>
+        , CPF <span style='text-decoration: underline;'><%= body.cpf %></span>, 
+        concluiu com sucesso, no dia <span style='text-decoration: underline;'><%= body.date %></span>, o Curso
+        <span style='text-decoration: underline;'><%= body.cursoName %></span> 
+        conforme conteúdo programático descrito no verso.
+      </p>
+      <p style='text-align: center; margin:30px 20px 30px 20px;'>Porto Alegre, <%= body.date %>.</p>
+      <div style='
+        display:inline-block;
+        min-width:32.9%;
+        max-width:32.9%;
+        margin:0;
+        padding: 0px 24px;
+      '>
+        <p style='text-align: center; color:black; font-weight: bold;  font-size: 12px;'>Nome do Assinante</p>
+        <p style='text-align: center; color:black; font-weight: bold;  font-size: 12px'>Carga na empresa</p>
+        <div style='
+          height:60px;
+          border-bottom: 1px solid #000;
+          background-position: center center;
+          background-image: url(https://image.flaticon.com/icons/png/512/4636/4636109.png);
+          background-size: contain;
+          background-repeat: no-repeat;
+        '>
+
+        </div>
+      </div>
+      <div style='
+        display:inline-block;
+        min-width:32.9%;
+        max-width:32.9%;
+        margin:0;
+        padding: 0px 24px;
+      '>
+        <p style='text-align: center; color:black; font-weight: bold;  font-size: 12px;'>Nome do Assinante</p>
+        <p style='text-align: center; color:black; font-weight: bold;  font-size: 12px'>Carga na empresa</p>
+        <div style='
+          height:60px;
+          border-bottom: 1px solid #000;
+        '>
+
+        </div>
+      </div>
+      <div style='
+        display:inline-block;
+        min-width:32.9%;
+        max-width:32.9%;
+        margin:0;
+        padding: 0px 24px;
+      '>
+        <p style='text-align: center; color:black; font-weight: bold;  font-size: 12px;'>Nome do Assinante</p>
+        <p style='text-align: center; color:black; font-weight: bold;  font-size: 12px'>Carga na empresa</p>
+        <div style='
+          height:60px;
+          border-bottom: 1px solid #000;
+        '>
+
+        </div>
+      </div>
+    </div>
+
+
+
+    
+    <div style='
+      background-color: white; 
+      width:100%; 
+      height: 595px; 
+      display:flex; 
+      align-items: center; 
+      justify-content: center; 
+      padding: 20px 50px; 
+      margin:0px;
+      position: relative;
+      background-position: center center;
+      background-image: url(https://img.freepik.com/fotos-gratis/texturas-de-parede-cinza-para-plano-de-fundo_74190-2715.jpg?size=626&ext=jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      '
+    >           
+      <image src='https://img.freepik.com/fotos-gratis/texturas-de-parede-cinza-para-plano-de-fundo_74190-2715.jpg?size=626&ext=jpg' style='
+        height:100px;
+        margin-left:600px;
+      ' />
+        
+      <table style="width:100%; border-spacing: 0px; border-collapse: collapse;">
+        <tr>
+          <th style='border: 1px solid #bbb;'>Início</th>
+          <th style='border: 1px solid #bbb;'>Conclusão</th>
+          <th style='border: 1px solid #bbb;'>Carga horária</th>
+          <th style='border: 1px solid #bbb;'>Frequência</th>
+          <th style='border: 1px solid #bbb;'>Nota final</th>
+        </tr>
+        <tr>
+          <td style='text-align:center; border: 1px solid #bbb;'>26/08/1998</td>
+          <td style='text-align:center; border: 1px solid #bbb;'>26/08/1998</td>
+          <td style='text-align:center; border: 1px solid #bbb;'>50 horas</td>
+          <td style='text-align:center; border: 1px solid #bbb;'>100%</td>
+          <td style='text-align:center; border: 1px solid #bbb;'>10/10</td>
+        </tr>
+      </table>
+      <p style='color:blue; color:black; font-weight: bold;  font-size: 18px;'>Conteúdo Programático</p>
+      <% if (contents.length > 0) { %>
+        <% contents.forEach(content => { %>
+            <div>
+                <p><%= content.name %></p>
+            </div>
+        <%  }); %>
+      <% } %>
+    </div>
+</body>
+</html>
